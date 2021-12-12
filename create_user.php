@@ -10,7 +10,7 @@ if(empty($_SESSION["user"]))
     redirect_to("/Учебный проект/page_login.php");
 }
 
-if($_SESSION["role"] == "user")
+if($_SESSION["role"] == "admin")
 {
     redirect_to("/Учебный проект/page_login.php");
 }

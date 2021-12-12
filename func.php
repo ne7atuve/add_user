@@ -71,6 +71,7 @@ function login($email, $password, $pdo)
 			$_SESSION["user"] = $user;
 			$_SESSION["current_user"] = $email;
 			$_SESSION["role"] = $user["role"];
+			$_SESSION["id"] = $user["id"];
 			redirect_to("/Учебный проект/users.php");
 		}
 		else
@@ -127,13 +128,32 @@ function add_image($id, $image, $pdo)
 }
 
 
-/*function delete_image($id, $image, $pdo)
+function get_user_by_id($id, $pdo)
 {
-	$sql = "SELECT image FROM users WHERE image = :image";
-   $statement = $pdo->prepare($sql);
-   $statement->execute(["image" => $image]);
-   $image = $statement->fetch(PDO::FETCH_ASSOC);
-
+	$sql = "SELECT * FROM users WHERE id = :id";
+	$statement = $pdo->prepare($sql);
+	$statement->execute(["id" => $id]);
+	return $statement->fetch(PDO::FETCH_ASSOC);
 }
-*/
+
+
+
+function check_Id()
+{
+	if(!$_SESSION["user"] and $_SESSION["login"] !== true)
+	{
+		return false;
+	}
+	if($_SESSION["role"] == "admin")
+		{
+			$id = $_GET["id"];
+		}
+		else
+		{
+			$id = $_SESSION["id"];
+		}
+		return $id;
+}
+
+
 ?>
